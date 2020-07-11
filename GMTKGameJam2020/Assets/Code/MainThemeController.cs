@@ -23,6 +23,8 @@ public class MainThemeController : MonoBehaviour
 
     void UpdateMusicClip(int index = 0)
     {
+        StopAllCoroutines();
+
         CurrentIndex = index;
 
         audioSource.Stop();
@@ -39,6 +41,23 @@ public class MainThemeController : MonoBehaviour
         audioSource.Play();
 
         StartCoroutine(FadeInAndOut(audioSource.clip));
+        
+    }
+
+    public void SetNewVolume(float target)
+    {
+        targetVolume = target;
+        StartCoroutine(SetToNewVolumeTarget());
+    }
+
+    private IEnumerator SetToNewVolumeTarget()
+    {
+        while (audioSource.volume < targetVolume)
+        {
+            audioSource.volume += targetVolume * Time.deltaTime / timeToFade;
+
+            yield return null;
+        }
     }
 
     private IEnumerator FadeInAndOut(AudioClip clip)

@@ -55,7 +55,8 @@ public class PlayerManager : MonoBehaviour
     {
         grounded = true;
 
-        playerAnimator.SetTrigger("Landed");
+        playerAnimator.SetBool("Jumping", false);
+        playerAnimator.SetBool("Landed", true);
 
         if (inTheAir)
             inTheAir = false;
@@ -65,7 +66,7 @@ public class PlayerManager : MonoBehaviour
     {
         grounded = false;
 
-        playerAnimator.ResetTrigger("Landed");
+        playerAnimator.SetBool("Landed", false);
     }
 
     public void ManageAnimations(float xAxis = 0)
@@ -81,7 +82,7 @@ public class PlayerManager : MonoBehaviour
             {
                 if(!inTheAir)
                 {
-                    playerAnimator.SetTrigger("jumping");
+                    playerAnimator.SetBool("Jumping", true);
                     inTheAir = true;
                 }
             }
