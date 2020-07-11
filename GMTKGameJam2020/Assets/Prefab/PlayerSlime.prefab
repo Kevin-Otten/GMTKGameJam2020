@@ -142,10 +142,12 @@ MonoBehaviour:
   playerSprite: {fileID: 5463247319146760653}
   playerAnimator: {fileID: 5463247319146760626}
   jumping: 0
+  inTheAir: 0
   grounded: 0
   death: 0
   movementSpeed: 7
   movementModifier: 1
+  MidAirSpeedModifier: 0.6
   jumpForce: 15
   myRigidbody: {fileID: 5463247319146760627}
   jumpMask:

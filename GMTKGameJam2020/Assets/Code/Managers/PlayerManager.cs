@@ -17,6 +17,7 @@ public class PlayerManager : MonoBehaviour
 
     public float movementSpeed = 5;
     public float movementModifier = 1;
+    public float MidAirSpeedModifier = 0.75f;
     public float jumpForce = 1;
 
     public Rigidbody2D myRigidbody;
@@ -112,6 +113,11 @@ public class PlayerManager : MonoBehaviour
         float xMove = xAxis * movementSpeed * 100;
         xMove *= Time.deltaTime;
         xMove *= movementModifier;
+
+        if(!grounded)
+        {
+            xMove *= MidAirSpeedModifier;
+        }
 
         Vector2 toMove = new Vector2(xMove, myRigidbody.velocity.y);
         myRigidbody.velocity = toMove;
