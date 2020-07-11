@@ -1,27 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    bool paused;
+    public static GameManager instance;
+
+    public bool paused;
 
     private void Awake()
     {
-        InputManager.instance.escapeEvent += TogglePauseGame;
+        if (!instance)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void TogglePauseGame()
+    private void ChanceScene(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex);
+    }
+
+    public void ToggleTimeScale()
     {
         if(!paused)
         {
-            paused = true;
             Time.timeScale = 0;
+            paused = true;
         }
         else
         {
-            paused = false;
             Time.timeScale = 1;
+            paused = false;
         }
     }
 }

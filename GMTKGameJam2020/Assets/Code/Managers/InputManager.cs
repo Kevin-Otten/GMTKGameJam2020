@@ -13,47 +13,51 @@ public class InputManager : MonoBehaviour
     public delegate void AxisInput(float xAxis);
 
     public BaseInput escapeEvent;
-    public AxisInput MovingEvent;
+    public BaseInput jumpEvent;
+    public BaseInput notMovingEvent;
+    public AxisInput movingEvent;
 
     public bool isMoving;
 
     //Asigning empty functions to the delegates to avoid Errors
     private void Awake()
     {
-        if (!instance)
-            instance = this;
-        else if (instance != this)
-            Destroy(gameObject);
+        instance = this;
 
         escapeEvent += Empty;
-        MovingEvent += EmptyAxis;
+        jumpEvent += Empty;
+        notMovingEvent += Empty;
+        movingEvent += EmptyAxis;
     }
 
     private void OnDestroy()
     {
         escapeEvent -= Empty;
-        MovingEvent -= EmptyAxis;
+        jumpEvent -= Empty;
+        notMovingEvent -= Empty;
+        movingEvent -= EmptyAxis;
     }
 
+    //Update for general input
     private void Update()
-    {
-        NormalInput();
-    }
-
-    //Generic input
-    private void NormalInput()
     {
         if (Input.GetButtonDown("Escape"))
             Escape();
+        if (Input.GetButtonDown("Jump"))
+            Jump();
     }
+
     //Fixed update for movementbased input to avoid physics problems
     private void FixedUpdate()
     {
-        //Movement input
         if (Input.GetAxis("Horizontal") > 0f || Input.GetAxis("Horizontal") < 0f)
+        {
             Moving(Input.GetAxis("Horizontal"));
+        }
         else
-            isMoving = false;
+        {
+            NotMoving();
+        }
     }
 
     //Generic input
@@ -61,11 +65,20 @@ public class InputManager : MonoBehaviour
     {
         escapeEvent.Invoke();
     }
+    public void Jump()
+    {
+        jumpEvent.Invoke();
+    }
     //Movement input
     private void Moving(float x)
     {
         isMoving = true;
-        MovingEvent.Invoke(x);
+        movingEvent.Invoke(x);
+    }
+    private void NotMoving()
+    {
+        isMoving = false;
+        notMovingEvent.Invoke();
     }
 
     //Empty functions to avoid "nothing inside the delegate" Errors with the delegates
