@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5463247319146760627}
   - component: {fileID: 5463247319146760624}
   - component: {fileID: 5463247319146760625}
-  - component: {fileID: 5463247319146760630}
+  - component: {fileID: 1580857538}
   m_Layer: 0
   m_Name: PlayerSlime
   m_TagString: Untagged
@@ -125,7 +125,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: b158df67fd45f774ea7aa37ff8ce23f8, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &5463247319146760624
 MonoBehaviour:
@@ -181,8 +181,8 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.504489, y: 0.14012575}
   m_EdgeRadius: 0
---- !u!61 &5463247319146760630
-BoxCollider2D:
+--- !u!70 &1580857538
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -194,16 +194,6 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0023875237, y: -0.17866689}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.7465754, y: 1.3594784}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0, y: -0.19}
+  m_Size: {x: 1.81, y: 1.37}
+  m_Direction: 1
