@@ -73,9 +73,9 @@ public class PlayerManager : MonoBehaviour
     {
         if(!death)
         {
-            if (xAxis <= 0)
+            if (xAxis < 0)
                 playerSprite.flipX = true;
-            else
+            else if(xAxis > 0)
                 playerSprite.flipX = false;
 
             if (jumping)

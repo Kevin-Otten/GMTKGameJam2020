@@ -5262,6 +5262,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5463247319146760626, guid: bae3b58067800ee47bbe02399ce49c3b,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: b14f44f49995f004c86804f221ce0f4f, type: 2}
     - target: {fileID: 5463247319146760631, guid: bae3b58067800ee47bbe02399ce49c3b,
         type: 3}
       propertyPath: m_Name
@@ -98657,6 +98662,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: newVolumeTargetHitbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 5927992151094605285, guid: 765222e6e6b9f7f42946c541e12bc6d6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 765222e6e6b9f7f42946c541e12bc6d6, type: 3}
