@@ -48,32 +48,36 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
-        if(inTheAir)
-        {
-            playerAnimator.SetFloat("Velocity", myRigidbody.velocity.y);
-        }
+        playerAnimator.SetFloat("Velocity", myRigidbody.velocity.y);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         grounded = true;
-        if(inTheAir)
-        {
-            playerAnimator.SetTrigger("Landed");
+
+        playerAnimator.SetTrigger("Landed");
+
+        if (inTheAir)
             inTheAir = false;
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         grounded = false;
+
+        playerAnimator.ResetTrigger("Landed");
     }
 
     public void ManageAnimations(float xAxis = 0)
     {
         if(!death)
         {
-            if(jumping)
+            if (xAxis <= 0)
+                playerSprite.flipX = true;
+            else
+                playerSprite.flipX = false;
+
+            if (jumping)
             {
                 if(!inTheAir)
                 {
@@ -85,14 +89,8 @@ public class PlayerManager : MonoBehaviour
             {
                 if (InputManager.instance.isMoving)
                 {
-                    if (xAxis <= 0)
-                        playerSprite.flipX = true;
-                    else
-                        playerSprite.flipX = false;
-
                     if(!playerAnimator.GetBool("Moving"))
                         playerAnimator.SetBool("Moving", true);
-
                 }
                 else if(playerAnimator.GetBool("Moving"))
                 {

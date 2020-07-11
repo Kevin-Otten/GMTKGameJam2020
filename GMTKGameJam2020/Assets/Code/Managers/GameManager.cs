@@ -37,4 +37,9 @@ public class GameManager : MonoBehaviour
             paused = false;
         }
     }
+
+    public void Gameover()
+    {
+
+    }
 }
