@@ -147,6 +147,9 @@ public class PlayerManager : MonoBehaviour
     {
         if(grounded && !jumping)
         {
+
+            Debug.Log("Jump");
+
             jumping = true;
 
             holdingSpace = true;
