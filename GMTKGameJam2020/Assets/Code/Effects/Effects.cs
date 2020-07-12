@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Effects : MonoBehaviour
+public abstract class Effects : MonoBehaviour
 {
+    public string effectID;
 
+    public abstract void Triggereffect(float duration);
 }
