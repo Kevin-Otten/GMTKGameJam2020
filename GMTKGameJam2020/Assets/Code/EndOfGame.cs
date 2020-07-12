@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class EndOfGame : MonoBehaviour
 {
+    private bool used;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        GameManager.instance.Gameover();
+        if(!used)
+        {
+            used = true;
+            GameManager.instance.Gameover();
+
+            Destroy(gameObject);
+        }
     }
 }
