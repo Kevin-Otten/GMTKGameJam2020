@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,8 +22,10 @@ public class EffectsManager : MonoBehaviour
     [Tooltip("use 0 - 100 for the persentage lower or higher than this will guarentee a outcome")]
     public float dubbleChanceValue = 10;
 
-    public Image image1;
-    public Image image2;
+    public GameObject imagePrefab;
+    public RectTransform parent;
+    public RectTransform start;
+    public RectTransform target;
 
     private void Awake()
     {
@@ -41,23 +42,29 @@ public class EffectsManager : MonoBehaviour
         }
     }
 
+    public void CreateIcon(Sprite sprite, float TimeToTravel)
+    {
+        GameObject icon = Instantiate(imagePrefab, start.position, Quaternion.identity);
+        icon.transform.SetParent(parent);
+
+        Movingimage imageScript = icon.GetComponent<Movingimage>();
+        imageScript.target = target;
+        icon.GetComponent<Image>().sprite = sprite;
+        imageScript.StartMovement(TimeToTravel);
+    }
+
     public void QueNextEffect()
     {
         float timeTillNextEffect = Random.Range(minBetweenTime, MaxBetweenTime);
 
         int nexteffectIndex = Random.Range(0, allEffects.Count);
 
-        image1.enabled = true;
-
-        image1.sprite = allEffects[nexteffectIndex].myIcon;
-
         StartCoroutine(TriggerEffect(timeTillNextEffect,allEffects[nexteffectIndex]));
 
         if(Random.Range(0, 100) <= dubbleChanceValue)
         {
             doubleEffect = true;
-            image2.enabled = true;
-
+            Debug.Log("DoubleTrouble");
             int nextDubbleffectIndex = nexteffectIndex;
 
             while(nextDubbleffectIndex == nexteffectIndex)
@@ -65,18 +72,13 @@ public class EffectsManager : MonoBehaviour
                 nextDubbleffectIndex = Random.Range(0, allEffects.Count - 1);
             }
 
-            image2.sprite = allEffects[nextDubbleffectIndex].myIcon;
-
             StartCoroutine(TriggerEffect(timeTillNextEffect + 1, allEffects[nextDubbleffectIndex]));
-        }
-        else
-        {
-            image2.enabled = false;
         }
     }
 
     private IEnumerator TriggerEffect(float time, Effects effect)
     {
+        CreateIcon(effect.myIcon, time);
         yield return new WaitForSeconds(time);
         effect.Triggereffect(effectDuration);
         if (!doubleEffect)

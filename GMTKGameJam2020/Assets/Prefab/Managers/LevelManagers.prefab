@@ -45,7 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   effectID: 
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: e911d8758b2ff1d4ea29cbb744a431e8, type: 3}
+  iceColor: {r: 0, g: 0.4479885, b: 1, a: 1}
+  OriginalColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1204805825
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   effectID: 
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: 8ad15bf0f6bc73442be07da3e6d9d448, type: 3}
 --- !u!1 &475442029125763176
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   effectID: 
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: 39f11bd6905bfe04c984c52ec2426cdb, type: 3}
 --- !u!1 &1146887105196083415
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   effectID: 
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: b0c397c86d027e5448fee6686a7437f5, type: 3}
 --- !u!1 &3852102824833678063
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,10 +328,15 @@ MonoBehaviour:
   - {fileID: 1719053604768060487}
   - {fileID: 8498705021141897541}
   player: {fileID: 0}
-  minBetweenTime: 12
-  MaxBetweenTime: 18
-  effectDuration: 6
-  dubbleChanceValue: 10
+  minBetweenTime: 8
+  MaxBetweenTime: 12
+  effectDuration: 4
+  dubbleChanceValue: 20
+  imagePrefab: {fileID: 2681902536421909891, guid: 7fe70e44a4d07854582ee096ee308732,
+    type: 3}
+  parent: {fileID: 0}
+  start: {fileID: 0}
+  target: {fileID: 0}
 --- !u!1 &4648187333254943398
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   effectID: 
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: cd3e1e8a9ce8fc743831564ea85014a3, type: 3}
 --- !u!1 &5419551396451480891
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,7 +566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   effectID: 
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: e373e3ff2a5516746a66e74961c2980c, type: 3}
 --- !u!1 &6174358004366098980
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   effectID: 
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: 2b46a4996d4930a4d9018111f815c8bb, type: 3}
 --- !u!1 &6422844893599737691
 GameObject:
   m_ObjectHideFlags: 0
@@ -651,7 +658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   effectID: 
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: 4cbf6d15df01a514aaced589517cb6df, type: 3}
 --- !u!1 &7070164102053888705
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,7 +704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   effectID: 
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: b5bac571b4ab2d5438405c7c843f467a, type: 3}
 --- !u!1 &7886085254655604700
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +750,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   effectID: 
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: 8d72f9f67496cce418072e5c0e86df19, type: 3}
 --- !u!1 &7956604611043759516
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   effectID: 
-  myIcon: {fileID: 0}
+  myIcon: {fileID: 21300000, guid: 12fa5b0a06374a440a4469deb3b3a131, type: 3}
 --- !u!1 &8012084305136379093
 GameObject:
   m_ObjectHideFlags: 0

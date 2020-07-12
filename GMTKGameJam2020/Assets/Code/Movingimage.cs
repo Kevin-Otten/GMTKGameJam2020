@@ -8,30 +8,32 @@ public class Movingimage : MonoBehaviour
     public RectTransform mytransform;
     public RectTransform target;
 
-    float timeOfTravel;
     float currentTime = 0;
-    float normalizedValue;
 
     void Start()
     {
-        timeOfTravel = EffectsManager.instance.effectDuration;
-        StartCoroutine(LerpObject());
+        mytransform = GetComponent<RectTransform>();
     }
-    //public void Update()
-    //{
-    //    mytransform.anchoredPosition = Vector3.Lerp(mytransform.position,target.position,)
-    //}
-
-    IEnumerator LerpObject()
+    public void StartMovement(float time)
     {
+        StartCoroutine(LerpObject(time));
+    }
 
-        while (currentTime <= timeOfTravel)
+    IEnumerator LerpObject(float timeToSpend)
+    {
+        float timeOfTravel = timeToSpend;
+        float t = 0f;
+        Vector2 currentPos = mytransform.localPosition;
+
+        while (t <= 1)
         {
-            currentTime += Time.deltaTime;
-            normalizedValue = currentTime / timeOfTravel; // we normalize our time 
+            t += Time.deltaTime / timeOfTravel;
 
-            mytransform.anchoredPosition = Vector3.Lerp(mytransform.anchoredPosition, target.anchoredPosition, normalizedValue);
+            mytransform.anchoredPosition = Vector3.Lerp(currentPos, target.localPosition, t);
+
             yield return null;
         }
+
+        Destroy(gameObject);
     }
 }
