@@ -139,16 +139,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84404327f712a024ebf1ca38b39cfb17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LastPositions: []
+  amountOfSavedPositions: 2
   playerSprite: {fileID: 5463247319146760653}
   playerAnimator: {fileID: 5463247319146760626}
   jumping: 0
   inTheAir: 0
   grounded: 0
-  death: 0
   movementSpeed: 5
   movementModifier: 1
   MidAirSpeedModifier: 0.65
-  jumpForce: 10
+  jumpForce: 12
   myRigidbody: {fileID: 5463247319146760627}
   jumpMask:
     serializedVersion: 2
@@ -156,9 +157,10 @@ MonoBehaviour:
   withFriction: {fileID: 6200000, guid: 79929f143b0e92348ad45e6a2819fa84, type: 2}
   withLimitedFriction: {fileID: 6200000, guid: b158df67fd45f774ea7aa37ff8ce23f8, type: 2}
   withoutFriction: {fileID: 6200000, guid: f8d493bf9035ed54981dbd074177673c, type: 2}
-  jumpTime: 0.45
+  jumpTime: 0.32
   inverseControls: 0
   inactiveControls: 0
+  firstContact: 0
 --- !u!61 &5463247319146760625
 BoxCollider2D:
   m_ObjectHideFlags: 0

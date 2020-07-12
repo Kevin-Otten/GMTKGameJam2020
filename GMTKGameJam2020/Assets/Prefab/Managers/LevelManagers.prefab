@@ -326,10 +326,10 @@ MonoBehaviour:
   - {fileID: 1719053604768060487}
   - {fileID: 8498705021141897541}
   player: {fileID: 0}
-  minBetweenTime: 7
-  MaxBetweenTime: 10
-  effectDuration: 5
-  dubbleChanceValue: 100
+  minBetweenTime: 12
+  MaxBetweenTime: 18
+  effectDuration: 6
+  dubbleChanceValue: 10
 --- !u!1 &4648187333254943398
 GameObject:
   m_ObjectHideFlags: 0

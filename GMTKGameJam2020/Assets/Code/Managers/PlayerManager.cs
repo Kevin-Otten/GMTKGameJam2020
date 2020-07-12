@@ -7,13 +7,15 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
 
+    public List<Vector3> LastPositions = new List<Vector3>();
+    public int amountOfSavedPositions = 5;
+
     public SpriteRenderer playerSprite;
     public Animator playerAnimator;
 
     public bool jumping;
     public bool inTheAir;
     public bool grounded;
-    public bool death;
 
     public float movementSpeed = 5;
     public float movementModifier = 1;
@@ -37,6 +39,8 @@ public class PlayerManager : MonoBehaviour
 
     public bool inverseControls;
     public bool inactiveControls;
+    public bool firstContact;
+
 
     public void Awake()
     {
@@ -79,6 +83,11 @@ public class PlayerManager : MonoBehaviour
             if (inTheAir)
                 inTheAir = false;
         }
+        if(!firstContact)
+        {
+            firstContact = true;
+            StartCoroutine(LogGroundPosition(0));
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -92,37 +101,30 @@ public class PlayerManager : MonoBehaviour
     {
         if(!inactiveControls)
         {
-            if(!death)
-            {
-                if (xAxis < 0 && !inverseControls || xAxis > 0 && inverseControls)
-                    playerSprite.flipX = true;
-                else if(xAxis > 0 && !inverseControls || xAxis< 0 && inverseControls)
-                    playerSprite.flipX = false;
+            if (xAxis < 0 && !inverseControls || xAxis > 0 && inverseControls)
+                playerSprite.flipX = true;
+            else if(xAxis > 0 && !inverseControls || xAxis< 0 && inverseControls)
+                playerSprite.flipX = false;
 
-                if (jumping)
+            if (jumping)
+            {
+                if(!inTheAir)
                 {
-                    if(!inTheAir)
-                    {
-                        playerAnimator.SetBool("Jumping", true);
-                        inTheAir = true;
-                    }
-                }
-                else if(grounded)
-                {
-                    if (InputManager.instance.isMoving)
-                    {
-                        if(!playerAnimator.GetBool("Moving"))
-                            playerAnimator.SetBool("Moving", true);
-                    }
-                    else if(playerAnimator.GetBool("Moving"))
-                    {
-                        playerAnimator.SetBool("Moving", false);
-                    }
+                    playerAnimator.SetBool("Jumping", true);
+                    inTheAir = true;
                 }
             }
-            else
+            else if(grounded)
             {
-                playerAnimator.SetTrigger("Death");
+                if (InputManager.instance.isMoving)
+                {
+                    if(!playerAnimator.GetBool("Moving"))
+                        playerAnimator.SetBool("Moving", true);
+                }
+                else if(playerAnimator.GetBool("Moving"))
+                {
+                    playerAnimator.SetBool("Moving", false);
+                }
             }
         }
     }
@@ -214,11 +216,34 @@ public class PlayerManager : MonoBehaviour
 
     public void Death()
     {
-        death = true;
+        transform.position = LastPositions[0];
+    }
+
+    private IEnumerator LogGroundPosition(float time)
+    {
+        yield return new WaitForSeconds(time);
 
 
+        if(grounded)
+        {
+            LastPositions.Add(transform.position);
+        }
+        else
+        {
+            while(!grounded)
+            {
+                yield return null;
+            }
 
-        ManageAnimations();
+            LastPositions.Add(transform.position);
+        }
+
+        if (LastPositions.Count > amountOfSavedPositions)
+        {
+            LastPositions.RemoveAt(0);
+        }
+
+        StartCoroutine(LogGroundPosition(1));
     }
 
     private IEnumerator NotJumping()

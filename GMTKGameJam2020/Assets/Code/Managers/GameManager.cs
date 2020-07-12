@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public bool paused;
 
+    public GameObject endscreen;
+
     private void Awake()
     {
         if (!instance)
@@ -40,6 +42,22 @@ public class GameManager : MonoBehaviour
 
     public void Gameover()
     {
+        ToggleTimeScale();
+        endscreen.SetActive(true);
+    }
 
+    public void Restart()
+    {
+        ToggleTimeScale();
+        ChanceScene(0);
+    }
+
+    public void Close()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }
