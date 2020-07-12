@@ -27,6 +27,7 @@ public class PlayerManager : MonoBehaviour
     public RaycastHit2D hit;
 
     public PhysicsMaterial2D withFriction;
+    public PhysicsMaterial2D withLimitedFriction;
     public PhysicsMaterial2D withoutFriction;
 
     //JumpControll values
@@ -34,11 +35,17 @@ public class PlayerManager : MonoBehaviour
     public float jumpTime;
     private bool holdingSpace;
 
-    public void Start()
+    public bool inverseControls;
+    public bool inactiveControls;
+
+    public void Awake()
     {
         instance = this;
         myRigidbody = GetComponent<Rigidbody2D>();
+    }
 
+    public void Start()
+    {
         InputManager.instance.movingEvent += Move;
         InputManager.instance.notMovingEvent += NotMove;
         InputManager.instance.jumpEvent += Jump;
@@ -83,99 +90,119 @@ public class PlayerManager : MonoBehaviour
 
     public void ManageAnimations(float xAxis = 0)
     {
-        if(!death)
+        if(!inactiveControls)
         {
-            if (xAxis < 0)
-                playerSprite.flipX = true;
-            else if(xAxis > 0)
-                playerSprite.flipX = false;
+            if(!death)
+            {
+                if (xAxis < 0 && !inverseControls || xAxis > 0 && inverseControls)
+                    playerSprite.flipX = true;
+                else if(xAxis > 0 && !inverseControls || xAxis< 0 && inverseControls)
+                    playerSprite.flipX = false;
 
-            if (jumping)
-            {
-                if(!inTheAir)
+                if (jumping)
                 {
-                    playerAnimator.SetBool("Jumping", true);
-                    inTheAir = true;
+                    if(!inTheAir)
+                    {
+                        playerAnimator.SetBool("Jumping", true);
+                        inTheAir = true;
+                    }
+                }
+                else if(grounded)
+                {
+                    if (InputManager.instance.isMoving)
+                    {
+                        if(!playerAnimator.GetBool("Moving"))
+                            playerAnimator.SetBool("Moving", true);
+                    }
+                    else if(playerAnimator.GetBool("Moving"))
+                    {
+                        playerAnimator.SetBool("Moving", false);
+                    }
                 }
             }
-            else if(grounded)
+            else
             {
-                if (InputManager.instance.isMoving)
-                {
-                    if(!playerAnimator.GetBool("Moving"))
-                        playerAnimator.SetBool("Moving", true);
-                }
-                else if(playerAnimator.GetBool("Moving"))
-                {
-                    playerAnimator.SetBool("Moving", false);
-                }
+                playerAnimator.SetTrigger("Death");
             }
-        }
-        else
-        {
-            playerAnimator.SetTrigger("Death");
         }
     }
 
     public void Move(float xAxis)
     {
-        myRigidbody.sharedMaterial = withoutFriction;
-
-        float xMove = xAxis * movementSpeed * 100;
-        xMove *= Time.deltaTime;
-        xMove *= movementModifier;
-
-        if(!grounded)
+        if(!inactiveControls)
         {
-            xMove *= MidAirSpeedModifier;
+            myRigidbody.sharedMaterial = withoutFriction;
+
+            float xMove = xAxis * movementSpeed * 100;
+            xMove *= Time.deltaTime;
+            xMove *= movementModifier;
+
+            if(!grounded)
+            {
+                xMove *= MidAirSpeedModifier;
+            }
+
+            Vector2 toMove = new Vector2(0, 0);
+
+            if(!inverseControls)
+            {
+                toMove = new Vector2(xMove, myRigidbody.velocity.y);
+            }
+            else
+            {
+                toMove = new Vector2(-xMove, myRigidbody.velocity.y);
+            }
+
+            myRigidbody.velocity = toMove;
+
+            ManageAnimations(xAxis);
         }
-
-        Vector2 toMove = new Vector2(xMove, myRigidbody.velocity.y);
-        myRigidbody.velocity = toMove;
-
-        ManageAnimations(xAxis);
     }
 
     public void NotMove()
     {
-        myRigidbody.sharedMaterial = withFriction;
-
-        ManageAnimations();
-    }
-
-    public void Jump()
-    {
-        if(grounded && !jumping)
+        if(!inactiveControls)
         {
-
-            Debug.Log("Jump");
-
-            jumping = true;
-
-            holdingSpace = true;
-
-            jumpTimeCounter = jumpTime;
-
-            myRigidbody.velocity = Vector2.up * jumpForce;
-
-            StartCoroutine(NotJumping());
+            myRigidbody.sharedMaterial = withFriction;
 
             ManageAnimations();
         }
     }
 
+    public void Jump()
+    {
+        if(!inactiveControls)
+        {
+            if(grounded && !jumping)
+            {
+                jumping = true;
+                holdingSpace = true;
+                jumpTimeCounter = jumpTime;
+
+                myRigidbody.velocity = Vector2.up * jumpForce;
+
+                StartCoroutine(NotJumping());
+
+                ManageAnimations();
+            }
+        }
+    }
+
     public void HoldingJump()
     {
-        if(holdingSpace)
+        if (!inactiveControls)
         {
-            if(jumpTimeCounter > 0)
+            if (holdingSpace)
             {
-                myRigidbody.velocity = Vector2.up * jumpForce;
-                jumpTimeCounter -= Time.deltaTime;
-            }
-            else
-            {
-                holdingSpace = false;
+                if(jumpTimeCounter > 0)
+                {
+                    myRigidbody.velocity = Vector2.up * jumpForce;
+                    jumpTimeCounter -= Time.deltaTime;
+                }
+                else
+                {
+                    holdingSpace = false;
+                }
             }
         }
     }

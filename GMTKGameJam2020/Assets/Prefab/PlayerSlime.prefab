@@ -154,8 +154,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   withFriction: {fileID: 6200000, guid: 79929f143b0e92348ad45e6a2819fa84, type: 2}
-  withoutFriction: {fileID: 6200000, guid: b158df67fd45f774ea7aa37ff8ce23f8, type: 2}
+  withLimitedFriction: {fileID: 6200000, guid: b158df67fd45f774ea7aa37ff8ce23f8, type: 2}
+  withoutFriction: {fileID: 6200000, guid: f8d493bf9035ed54981dbd074177673c, type: 2}
   jumpTime: 0.45
+  inverseControls: 0
+  inactiveControls: 0
 --- !u!61 &5463247319146760625
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -19,7 +19,10 @@ public class InputManager : MonoBehaviour
     public BaseInput notMovingEvent;
     public AxisInput movingEvent;
 
+    private float recordedHorValue;
+
     public bool isMoving;
+    public bool forcedMoving;
 
     //Asigning empty functions to the delegates to avoid Errors
     private void Awake()
@@ -63,11 +66,29 @@ public class InputManager : MonoBehaviour
     {
         if (Input.GetAxis("Horizontal") > 0f || Input.GetAxis("Horizontal") < 0f)
         {
-            Moving(Input.GetAxis("Horizontal"));
+            recordedHorValue = Input.GetAxis("Horizontal");
+            if (!forcedMoving)
+            {
+                Debug.Log("Normal movement");
+                Moving(Input.GetAxis("Horizontal"));
+            }
         }
         else
         {
             NotMoving();
+            if(!forcedMoving)
+                recordedHorValue = 0;
+        }
+
+        if (forcedMoving)
+        {
+            Debug.Log("forced directional movement");
+
+            if (recordedHorValue > 0)
+                Moving(1);
+            else if (recordedHorValue < 0)
+                Moving(-1);
+            
         }
     }
 
@@ -94,7 +115,7 @@ public class InputManager : MonoBehaviour
         isMoving = true;
         movingEvent.Invoke(x);
     }
-    private void NotMoving()
+    public void NotMoving()
     {
         isMoving = false;
         notMovingEvent.Invoke();

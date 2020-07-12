@@ -6,6 +6,10 @@ public class EffectsManager : MonoBehaviour
 {
     public List<Effects> allEffects = new List<Effects>();
 
+    public PlayerManager player;
+
+    private bool doubleEffect;
+
     [Space]
 
     public float minBetweenTime = 6;
@@ -18,19 +22,31 @@ public class EffectsManager : MonoBehaviour
     private void Start()
     {
         QueNextEffect();
+
+        foreach(Effects effect in allEffects)
+        {
+            effect.player = player;
+        }
     }
 
     public void QueNextEffect()
     {
         float timeTillNextEffect = Random.Range(minBetweenTime, MaxBetweenTime);
 
-        int nexteffectIndex = Random.Range(0, allEffects.Count - 1);
+        int nexteffectIndex = Random.Range(0, allEffects.Count);
 
         StartCoroutine(TriggerEffect(timeTillNextEffect,allEffects[nexteffectIndex]));
 
         if(Random.Range(0, 100) <= dubbleChanceValue)
         {
-            int nextDubbleffectIndex = Random.Range(0, allEffects.Count - 1);
+            doubleEffect = true;
+            Debug.Log("DoubleTrouble");
+            int nextDubbleffectIndex = nexteffectIndex;
+
+            while(nextDubbleffectIndex == nexteffectIndex)
+            {
+                nextDubbleffectIndex = Random.Range(0, allEffects.Count - 1);
+            }
 
             StartCoroutine(TriggerEffect(timeTillNextEffect + 1, allEffects[nextDubbleffectIndex]));
         }
@@ -40,6 +56,9 @@ public class EffectsManager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         effect.Triggereffect(effectDuration);
-        QueNextEffect();
+        if (!doubleEffect)
+            QueNextEffect();
+        else
+            doubleEffect = false;
     }
 }
