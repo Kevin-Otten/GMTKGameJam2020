@@ -86,7 +86,7 @@ public class InputManager : MonoBehaviour
     }
     public void NotHoldingJump()
     {
-        holdingJumpEvent.Invoke();
+        notHoldingJumpEvent.Invoke();
     }
     //Movement input
     private void Moving(float x)
