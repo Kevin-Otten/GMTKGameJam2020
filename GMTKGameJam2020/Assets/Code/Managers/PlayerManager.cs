@@ -51,15 +51,18 @@ public class PlayerManager : MonoBehaviour
         playerAnimator.SetFloat("Velocity", myRigidbody.velocity.y);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        grounded = true;
+        if(collision.gameObject.layer != 2 && grounded == false)
+        {
+            grounded = true;
 
-        playerAnimator.SetBool("Jumping", false);
-        playerAnimator.SetBool("Landed", true);
+            playerAnimator.SetBool("Jumping", false);
+            playerAnimator.SetBool("Landed", true);
 
-        if (inTheAir)
-            inTheAir = false;
+            if (inTheAir)
+                inTheAir = false;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

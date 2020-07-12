@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   random: 0
-  targetVolume: 0.1
+  targetVolume: 0.01
   timeToFade: 5
   timeBetweenClips: 1
   themes:
