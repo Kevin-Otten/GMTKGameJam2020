@@ -15,6 +15,7 @@ public class PostInroTriggerBox : MonoBehaviour
         {
             cameraMovement.Smoothness = 5;
             playerRigidbody.gravityScale = 3;
+            Destroy(gameObject);
         }
     }
 }

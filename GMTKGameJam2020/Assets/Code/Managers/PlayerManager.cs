@@ -29,6 +29,11 @@ public class PlayerManager : MonoBehaviour
     public PhysicsMaterial2D withFriction;
     public PhysicsMaterial2D withoutFriction;
 
+    //JumpControll values
+    private float jumpTimeCounter;
+    public float jumpTime;
+    private bool holdingSpace;
+
     public void Start()
     {
         instance = this;
@@ -37,6 +42,8 @@ public class PlayerManager : MonoBehaviour
         InputManager.instance.movingEvent += Move;
         InputManager.instance.notMovingEvent += NotMove;
         InputManager.instance.jumpEvent += Jump;
+        InputManager.instance.holdingJumpEvent += HoldingJump;
+        InputManager.instance.notHoldingJumpEvent += NotHoldingJump;
     }
 
     public void OnDestroy()
@@ -44,6 +51,8 @@ public class PlayerManager : MonoBehaviour
         InputManager.instance.movingEvent -= Move;
         InputManager.instance.notMovingEvent -= NotMove;
         InputManager.instance.jumpEvent -= Jump;
+        InputManager.instance.holdingJumpEvent -= HoldingJump;
+        InputManager.instance.notHoldingJumpEvent -= NotHoldingJump;
     }
 
     private void Update()
@@ -140,12 +149,37 @@ public class PlayerManager : MonoBehaviour
         {
             jumping = true;
 
-            myRigidbody.AddForce(new Vector2(0, jumpForce * 100));
+            holdingSpace = true;
+
+            jumpTimeCounter = jumpTime;
+
+            myRigidbody.velocity = Vector2.up * jumpForce;
 
             StartCoroutine(NotJumping());
 
             ManageAnimations();
         }
+    }
+
+    public void HoldingJump()
+    {
+        if(holdingSpace)
+        {
+            if(jumpTimeCounter > 0)
+            {
+                myRigidbody.velocity = Vector2.up * jumpForce;
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                holdingSpace = false;
+            }
+        }
+    }
+
+    public void NotHoldingJump()
+    {
+        holdingSpace = false;
     }
 
     public void Death()

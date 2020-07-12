@@ -13,6 +13,7 @@ public class TriggerMusicSoundIncrease : MonoBehaviour
         {
             theme.SetNewVolume(newVolumeTarget);
             triggerd = true;
+            Destroy(gameObject);
         }
     }
 }
