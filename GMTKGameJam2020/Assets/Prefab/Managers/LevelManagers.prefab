@@ -306,6 +306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMoving: 0
+  forcedMoving: 0
 --- !u!114 &7900761406615035643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,10 +324,11 @@ MonoBehaviour:
   - {fileID: 3651283227176637052}
   - {fileID: 566383294}
   - {fileID: 1719053604768060487}
+  - {fileID: 8498705021141897541}
   player: {fileID: 0}
-  minBetweenTime: 6
-  MaxBetweenTime: 8
-  effectDuration: 3
+  minBetweenTime: 7
+  MaxBetweenTime: 10
+  effectDuration: 5
   dubbleChanceValue: 100
 --- !u!1 &4648187333254943398
 GameObject:

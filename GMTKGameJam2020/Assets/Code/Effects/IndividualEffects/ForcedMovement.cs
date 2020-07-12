@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class ForcedMovement : Effects
 {
-
-    public float intensity;
-
     public override void Triggereffect(float duration)
     {
         Debug.Log("forced");
