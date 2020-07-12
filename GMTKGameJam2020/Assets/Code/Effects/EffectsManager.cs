@@ -40,5 +40,6 @@ public class EffectsManager : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         effect.Triggereffect(effectDuration);
+        QueNextEffect();
     }
 }

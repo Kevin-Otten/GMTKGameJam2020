@@ -14,6 +14,8 @@ public class InputManager : MonoBehaviour
 
     public BaseInput escapeEvent;
     public BaseInput jumpEvent;
+    public BaseInput holdingJumpEvent;
+    public BaseInput notHoldingJumpEvent;
     public BaseInput notMovingEvent;
     public AxisInput movingEvent;
 
@@ -26,6 +28,8 @@ public class InputManager : MonoBehaviour
 
         escapeEvent += Empty;
         jumpEvent += Empty;
+        holdingJumpEvent += Empty;
+        notHoldingJumpEvent += Empty;
         notMovingEvent += Empty;
         movingEvent += EmptyAxis;
     }
@@ -34,6 +38,8 @@ public class InputManager : MonoBehaviour
     {
         escapeEvent -= Empty;
         jumpEvent -= Empty;
+        holdingJumpEvent -= Empty;
+        notHoldingJumpEvent -= Empty;
         notMovingEvent -= Empty;
         movingEvent -= EmptyAxis;
     }
@@ -45,6 +51,11 @@ public class InputManager : MonoBehaviour
             Escape();
         if (Input.GetButtonDown("Jump"))
             Jump();
+        if (Input.GetButton("Jump"))
+            HoldingJump();
+        if (Input.GetButtonUp("Jump"))
+            NotHoldingJump();
+
     }
 
     //Fixed update for movementbased input to avoid physics problems
@@ -68,6 +79,14 @@ public class InputManager : MonoBehaviour
     public void Jump()
     {
         jumpEvent.Invoke();
+    }
+    public void HoldingJump()
+    {
+        holdingJumpEvent.Invoke();
+    }
+    public void NotHoldingJump()
+    {
+        holdingJumpEvent.Invoke();
     }
     //Movement input
     private void Moving(float x)

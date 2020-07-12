@@ -163,7 +163,7 @@ MonoBehaviour:
   allEffects:
   - {fileID: 566383294}
   - {fileID: 1204805826}
-  minBetweenTime: 0
-  MaxBetweenTime: 0
-  effectDuration: 0
+  minBetweenTime: 6
+  MaxBetweenTime: 8
+  effectDuration: 3
   dubbleChanceValue: 10
