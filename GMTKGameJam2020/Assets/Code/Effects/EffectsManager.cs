@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EffectsManager : MonoBehaviour
+public class EffectsManager : MonoBehaviour 
 {
     public static EffectsManager instance;
 
@@ -60,7 +60,6 @@ public class EffectsManager : MonoBehaviour
         int nexteffectIndex = Random.Range(0, allEffects.Count);
 
         StartCoroutine(TriggerEffect(timeTillNextEffect,allEffects[nexteffectIndex]));
-
         if(Random.Range(0, 100) <= dubbleChanceValue)
         {
             doubleEffect = true;
@@ -71,7 +70,6 @@ public class EffectsManager : MonoBehaviour
             {
                 nextDubbleffectIndex = Random.Range(0, allEffects.Count - 1);
             }
-
             StartCoroutine(TriggerEffect(timeTillNextEffect + 1, allEffects[nextDubbleffectIndex]));
         }
     }
