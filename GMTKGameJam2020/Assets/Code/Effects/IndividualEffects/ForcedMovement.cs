@@ -13,7 +13,7 @@ public class ForcedMovement : Effects
 
     private IEnumerator RefertEffect(float time)
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time + 2);
         InputManager.instance.forcedMoving = false;
         InputManager.instance.NotMoving();
     }
