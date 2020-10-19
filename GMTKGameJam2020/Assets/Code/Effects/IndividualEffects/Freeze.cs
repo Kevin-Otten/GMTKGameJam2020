@@ -7,13 +7,15 @@ public class Freeze : Effects
     public Color iceColor;
     public Color OriginalColor;
 
+    public float durationModifier = 1;
+
     public override void Triggereffect(float duration)
     {
         player.GetComponent<SpriteRenderer>().color = iceColor;
 
         player.inactiveControls = true;
         player.myRigidbody.sharedMaterial = player.withLimitedFriction;
-        StartCoroutine(RefertEffect(duration));
+        StartCoroutine(RefertEffect(duration * durationModifier));
     }
 
     private IEnumerator RefertEffect(float time)
